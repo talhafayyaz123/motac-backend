@@ -14,6 +14,12 @@ export class CourseMapper {
     return domainEntity;
   }
 
+  static toDomainName(raw: CourseEntity): Course {
+    const domainEntity = new Course();
+    domainEntity.name = raw.name;
+    return domainEntity;
+  }
+
   static toPersistence(domainEntity: Course): CourseEntity {
     const persistenceEntity = new CourseEntity();
     persistenceEntity.description = domainEntity.description;

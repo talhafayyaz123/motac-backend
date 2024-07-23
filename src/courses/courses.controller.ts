@@ -70,6 +70,30 @@ export class CoursesController {
     );
   }
 
+  @Get('/names')
+  @ApiOkResponse({
+    type: InfinityPaginationResponse(Course),
+  })
+  async findAllName(
+    @Query() query: FindAllCoursesDto,
+  ): Promise<InfinityPaginationResponseDto<Course>> {
+    const page = query?.page ?? 1;
+    let limit = query?.limit ?? 10;
+    if (limit > 50) {
+      limit = 50;
+    }
+
+    return infinityPagination(
+      await this.coursesService.findAllNamesWithPagination({
+        paginationOptions: {
+          page,
+          limit,
+        },
+      }),
+      { page, limit },
+    );
+  }
+
   @Get(':id')
   @ApiParam({
     name: 'id',

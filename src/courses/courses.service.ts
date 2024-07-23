@@ -26,6 +26,19 @@ export class CoursesService {
     });
   }
 
+  findAllNamesWithPagination({
+    paginationOptions,
+  }: {
+    paginationOptions: IPaginationOptions;
+  }) {
+    return this.courseRepository.findAllNamesWithPagination({
+      paginationOptions: {
+        page: paginationOptions.page,
+        limit: paginationOptions.limit,
+      },
+    });
+  }
+
   findOne(id: Course['id']) {
     return this.courseRepository.findById(id);
   }

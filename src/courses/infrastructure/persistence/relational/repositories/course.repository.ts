@@ -36,6 +36,20 @@ export class CourseRelationalRepository implements CourseRepository {
     return entities.map((user) => CourseMapper.toDomain(user));
   }
 
+  async findAllNamesWithPagination({
+    paginationOptions,
+  }: {
+    paginationOptions: IPaginationOptions;
+  }): Promise<Course[]> {
+    const entities = await this.courseRepository.find({
+      select: ['name'],
+      skip: (paginationOptions.page - 1) * paginationOptions.limit,
+      take: paginationOptions.limit,
+    });
+
+    return entities.map((user) => CourseMapper.toDomainName(user));
+  }
+
   async findById(id: Course['id']): Promise<NullableType<Course>> {
     const entity = await this.courseRepository.findOne({
       where: { id },

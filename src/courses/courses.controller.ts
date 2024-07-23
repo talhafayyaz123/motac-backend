@@ -29,8 +29,6 @@ import { infinityPagination } from '../utils/infinity-pagination';
 import { FindAllCoursesDto } from './dto/find-all-courses.dto';
 
 @ApiTags('Courses')
-@ApiBearerAuth()
-@UseGuards(AuthGuard('jwt'))
 @Controller({
   path: 'courses',
   version: '1',
@@ -42,6 +40,8 @@ export class CoursesController {
   @ApiCreatedResponse({
     type: Course,
   })
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   create(@Body() createCourseDto: CreateCourseDto) {
     return this.coursesService.create(createCourseDto);
   }
@@ -50,6 +50,8 @@ export class CoursesController {
   @ApiOkResponse({
     type: InfinityPaginationResponse(Course),
   })
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   async findAll(
     @Query() query: FindAllCoursesDto,
   ): Promise<InfinityPaginationResponseDto<Course>> {
@@ -100,6 +102,8 @@ export class CoursesController {
     type: String,
     required: true,
   })
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   findOne(@Param('id') id: string) {
     return this.coursesService.findOne(id);
   }
@@ -113,6 +117,8 @@ export class CoursesController {
   @ApiOkResponse({
     type: Course,
   })
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
     return this.coursesService.update(id, updateCourseDto);
   }
@@ -123,6 +129,8 @@ export class CoursesController {
     type: String,
     required: true,
   })
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   remove(@Param('id') id: string) {
     return this.coursesService.remove(id);
   }

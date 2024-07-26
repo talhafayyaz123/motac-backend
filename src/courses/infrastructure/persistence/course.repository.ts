@@ -20,6 +20,12 @@ export abstract class CourseRepository {
     paginationOptions: IPaginationOptions;
   }): Promise<Course[]>;
 
+  abstract findAllNamesWithPaginationRaw({
+    paginationOptions,
+  }: {
+    paginationOptions: IPaginationOptions;
+  }): Promise<Course[]>;
+
   abstract findById(id: Course['id']): Promise<NullableType<Course>>;
 
   abstract update(
